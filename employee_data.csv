@@ -1,3 +1,5 @@
 id,first_name,last_name,email,password,phoneNo,role
-1,jesus,yadav,sam005.sam@gmail.com,,9689081347,IT
-2,sam,yadav,sam005.sam@gmail.com,,9689081347,IT
+1,sam,yadav,sam005.sam@gmail.com,123,9689081347,IT
+2,updated,yadav,sam005.sam@gmail.com,123,9689081347,IT
+3,Jesus,yadav,sam005.sam@gmail.com,123,9689081347,IT
+4,ShanaKida,yadav,sam005.sam@gmail.com,123,9689081347,IT
