@@ -9,33 +9,41 @@ import (
 	"strconv"
 )
 
+// UpdateEmployeeByID updates an employee's details by ID.
 func UpdateEmployeeByID(id int, updatedEmployee models.Employee) error {
-	employees, err := storage.ReadAllEmployees() //Reading all data from CSV file
+	employees, err := storage.ReadAllEmployees() // Read all employee data from CSV file.
 	if err != nil {
 		return err
 	}
 
 	var updated bool
 
-	for i, employee := range employees { // Parsing through employees data from CSV
+	// Iterate through employees to find the one with the specified ID.
+	for i, employee := range employees {
 		empid, _ := strconv.Atoi(employee.ID)
 		if empid == id {
-			employees[i] = updatedEmployee
+			employees[i] = updatedEmployee // Update the employee details.
 			updated = true
 			break
 		}
 	}
 
+	// If the employee with the specified ID was not found, return an error.
 	if !updated {
 		return fmt.Errorf("Employee with ID %v not found", id)
 	}
+
+	// Open the CSV file for writing.
 	file, err := os.OpenFile(storage.CsvFilePath, os.O_RDWR|os.O_CREATE|os.O_APPEND|os.O_TRUNC, 0666)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
+
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
+
+	// Write the updated employee data to the CSV file.
 	for i := 0; i < len(employees); i++ {
 		row := []string{
 			employees[i].ID,
@@ -52,5 +60,6 @@ func UpdateEmployeeByID(id int, updatedEmployee models.Employee) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
