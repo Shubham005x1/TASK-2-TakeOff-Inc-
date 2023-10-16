@@ -29,9 +29,9 @@ func UpdateEmployeeById(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
-
+	updatedEmployee.ID = strconv.Itoa(id)
 	// Check if all required fields are provided.
-	if updatedEmployee.ID == "" || updatedEmployee.FirstName == "" || updatedEmployee.LastName == "" || updatedEmployee.Email == "" || updatedEmployee.Role == "" || updatedEmployee.PhoneNo == "" {
+	if updatedEmployee.FirstName == "" || updatedEmployee.LastName == "" || updatedEmployee.Email == "" || updatedEmployee.Role == "" || updatedEmployee.PhoneNo == "" {
 		http.Error(w, "All fields are required", http.StatusBadRequest)
 		return
 	}
