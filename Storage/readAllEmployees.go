@@ -3,7 +3,9 @@ package storage
 import (
 	"TakeOff_Task-2/models"
 	"encoding/csv"
+	"fmt"
 	"os"
+	"strconv"
 )
 
 // ReadAllEmployees reads all employee records from the CSV file and returns a slice of Employee structs.
@@ -41,4 +43,20 @@ func ReadAllEmployees() ([]models.Employee, error) {
 	}
 
 	return employees, nil
+}
+
+func GetEmployeeByID(id int) (models.Employee, error) {
+	employees, err := ReadAllEmployees()
+	if err != nil {
+		return models.Employee{}, err
+	}
+
+	for _, employee := range employees {
+		empID, _ := strconv.Atoi(employee.ID)
+		if empID == id {
+			return employee, nil
+		}
+	}
+
+	return models.Employee{}, fmt.Errorf("Employee with ID %d not found", id)
 }
